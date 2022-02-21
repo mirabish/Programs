@@ -17,10 +17,13 @@ package edu.nmsu.cs.webserver;
  * content for the response content. HTTP requests and responses are just lines of text (in a very
  * particular format).
  * 
- * @author Jon Cook, Ph.D.
+ * 
  *
  **/
 
+import java.io.*;
+import java.lang.Runnable;
+import java.net.Socket;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -32,7 +35,8 @@ import java.util.TimeZone;
 
 public class WebWorker implements Runnable
 {
-
+	public String addressNew;
+	public boolean exists = false;
 	private Socket socket;
 
 	/**
@@ -83,6 +87,21 @@ public class WebWorker implements Runnable
 				while (!r.ready())
 					Thread.sleep(1);
 				line = r.readLine();
+				if(line.contains("GET") && line.contains(".html")){
+					char[] cstr = new char[line.length() - 14]; //takes in the string length into an array
+					int j = 5; 
+					for(int i = 0; i < cstr.length; i++){ //iterates through the given array and gets the file address from GETS.
+						cstr[i] = line.charAt(j);
+						j++;
+					}
+					addressNew = new String(cstr); //stores given array int
+					
+					File tempFile = new File(addressNew); 
+					exists =  tempFile.exists(); 
+				  
+					} // end if 				
+				
+			
 				System.err.println("Request line: (" + line + ")");
 				if (line.length() == 0)
 					break;
@@ -132,9 +151,34 @@ public class WebWorker implements Runnable
 	 **/
 	private void writeContent(OutputStream os) throws Exception
 	{
+		if(exists == true){ 
+  
+			Date date = new Date(); 
+			String server = " Miranda's server";
+			BufferedReader in = new BufferedReader(new FileReader(addressNew));
+			String curr;
+			
+			while((curr = in.readLine()) != null){ 
+				if(curr.contains("{{cs371date}}")){
+				curr = curr.replace("{{cs371date}}",date.toString());
+				}
+				if(curr.contains("{{cs371server}}")){ 
+					curr = curr.replace("{{cs371server}}",server);
+				}
+				os.write("<html><head></head><body>\n".getBytes());
+				os.write(("<h3>"+ curr +"\n</h3>\n").getBytes()); // we need to make print 404 when, file isnt found. 
+				os.write("</body></html>\n".getBytes());
+			}
+	 
+		} 
+
+		else{
+
 		os.write("<html><head></head><body>\n".getBytes());
-		os.write("<h3>My web server works!</h3>\n".getBytes());
+		os.write("<h3>404 Not Found!</h3>\n".getBytes());
 		os.write("</body></html>\n".getBytes());
+		}
 	}
 
 } // end class
+//http://localhost:8080/res/acc/test.html
