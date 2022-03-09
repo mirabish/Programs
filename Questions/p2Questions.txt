@@ -2,7 +2,9 @@
 Since we're updating the old files I think this should take me about 1 hour
 
 2. Estimate the time it took you complete the assignment , 
-thought/ design 
-programming
-debugging
-total 
+thought/ design 15
+programming  25
+debugging   20
+total     55 min 
+
+% error 9% error 
