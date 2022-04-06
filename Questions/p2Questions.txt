@@ -1,0 +1,11 @@
+
+1.Estimate the time it will take you to do the assignment: 
+Since we're updating the old files I think this should take me about 1 hour
+
+2. Estimate the time it took you complete the assignment , 
+thought/ design 15
+programming  25
+debugging   40
+total     80 min 
+
+% error 33% error
