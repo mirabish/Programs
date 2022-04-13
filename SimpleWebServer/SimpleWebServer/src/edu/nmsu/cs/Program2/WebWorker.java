@@ -170,7 +170,7 @@ private void writeContent(OutputStream os) throws Exception
       if(HTML){ 
       
        Date date = new Date(); 
-      String server = "nekkytechy's Server";
+      String server = "Miranda's Server";
       BufferedReader in = new BufferedReader(new FileReader(addressNew));
       String curr;
       
