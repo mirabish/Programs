@@ -12,13 +12,11 @@ package edu.nmsu.cs.scoring;
  * 
  ***/
 
+
 public class RacingScore1
 {
-
 	int	score1;
-
 	int	score2;
-
 	int	score3;
 
 	public RacingScore1()
@@ -42,8 +40,10 @@ public class RacingScore1
 			s = score2;
 		else
 			s = score1;
+
 		if (s > score3)
 			s = score3;
+
 		s = (score1 + score2 + score3) - s;
 		return s;
 	}
