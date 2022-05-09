@@ -6,3 +6,4 @@ public class Point
 
 	double	y;
 }
+
